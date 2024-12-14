@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
+                Upgrade to Professional
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Take your clinic management to the next level with our comprehensive solution
+            </p>
+        </div>
+
+        <!-- Trial Status Alert -->
+        <div class="bg-orange-50 border border-orange-200 rounded-xl p-6 mb-12 shadow-sm">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-8 w-8 text-orange-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-lg font-semibold text-orange-800">Trial Status</h3>
+                    <div class="mt-1 text-orange-700">
+                        <p>Your trial period will expire on {{ current_user.trial_end.strftime('%B %d, %Y at %I:%M %p') }}</p>
+                        <p class="text-sm mt-1">Upgrade now to ensure uninterrupted access to all features</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Card -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center">
+                <h2 class="text-3xl font-bold text-white mb-2">Professional Plan</h2>
+                <p class="text-blue-100 text-lg">Everything you need to run your clinic efficiently</p>
+            </div>
+            
+            <div class="p-8">
+                <!-- Currency Selection -->
+                <div class="mb-8 text-center">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Your Currency</label>
+                    <select id="currency" onchange="updatePrice(this.value)" 
+                            class="mt-1 block w-48 mx-auto py-2 px-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                        <option value="INR">Indian Rupee (₹)</option>
+                        <option value="USD">US Dollar ($)</option>
+                        <option value="EUR">Euro (€)</option>
+                        <option value="JPY">Japanese Yen (¥)</option>
+                        <option value="AED">UAE Dirham (د.إ)</option>
+                    </select>
+                </div>
+
+                <!-- Price Display -->
+                <div class="text-center mb-8">
+                    <div class="text-5xl font-bold text-gray-900 mb-2">
+                        <span id="price-INR" class="price">₹8,999</span>
+                        <span id="price-USD" class="price hidden">$108</span>
+                        <span id="price-EUR" class="price hidden">€99</span>
+                        <span id="price-JPY" class="price hidden">¥15,800</span>
+                        <span id="price-AED" class="price hidden">د.إ399</span>
+                    </div>
+                    <span class="text-lg text-gray-600">per year</span>
+                </div>
+
+                <!-- Features -->
+                <div class="space-y-6 mb-8">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 text-center">Everything You Get</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="text-base font-medium text-gray-900">Unlimited Patients</h4>
+                                <p class="mt-1 text-sm text-gray-500">No restrictions on patient records</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="text-base font-medium text-gray-900">Advanced Scheduling</h4>
+                                <p class="mt-1 text-sm text-gray-500">Smart appointment management</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="text-base font-medium text-gray-900">Digital Prescriptions</h4>
+                                <p class="mt-1 text-sm text-gray-500">Professional prescription management</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="text-base font-medium text-gray-900">Billing & Invoicing</h4>
+                                <p class="mt-1 text-sm text-gray-500">Automated financial management</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upgrade Button -->
+                <div class="text-center">
+                    <a href="https://dentflow.pro/contact" target="_blank" 
+                       class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-medium rounded-xl text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform transition-all hover:scale-105 shadow-lg">
+                        Upgrade Now
+                        <svg class="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </a>
+                    <p class="mt-4 text-sm text-gray-600">Secure payment processing • Instant activation</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function updatePrice(currency) {
+    document.querySelectorAll('.price').forEach(el => el.classList.add('hidden'));
+    document.getElementById(`price-${currency}`).classList.remove('hidden');
+}
+</script>
+{% endblock %} 
